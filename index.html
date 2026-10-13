@@ -1,337 +1,1110 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" dir="ltr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Site officiel du club de génie industriel ICEM Tlemcen">
-    <title>ICEM Tlemcen | Club de Génie Industriel</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#081b35">
+<meta name="description" content="ICEM Tlemcen - Industrial Engineering, Creativity and Innovation.">
+<title>ICEM Tlemcen | Innovation & Excellence</title>
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<style>
+:root {
+  --blue: #123b70;
+  --dark: #081b35;
+  --cyan: #20c9d8;
+  --light: #f3f7fc;
+  --text: #26364a;
+  --muted: #65758b;
+}
 
-        html {
-            scroll-behavior: smooth;
-        }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-        body {
-            font-family: Arial, sans-serif;
-            background: #f5f7fc;
-            color: #17233f;
-            line-height: 1.6;
-        }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+}
 
-        header {
-            background: #101d40;
-            color: white;
-            padding: 18px 7%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
+body {
+  font-family: Arial, Tahoma, sans-serif;
+  color: var(--text);
+  line-height: 1.7;
+  background: white;
+}
 
-        .logo {
-            font-size: 25px;
-            font-weight: bold;
-            color: #ffffff;
-        }
+a {
+  text-decoration: none;
+  color: inherit;
+}
 
-        .logo span {
-            color: #61a8ff;
-        }
+button, input, select, textarea {
+  font: inherit;
+}
 
-        nav {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
+.container {
+  width: min(1120px, 92%);
+  margin: auto;
+}
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-size: 14px;
-        }
+header {
+  background: var(--dark);
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 3px 18px #0002;
+}
 
-        nav a:hover {
-            color: #61a8ff;
-        }
+nav {
+  min-height: 76px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+}
 
-        .hero {
-            background: linear-gradient(135deg, #101d40, #174f91);
-            color: white;
-            padding: 100px 8%;
-            text-align: center;
-        }
+.logo {
+  font-size: 1.8rem;
+  font-weight: 900;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
 
-        .hero .badge {
-            display: inline-block;
-            background: #ffffff20;
-            border: 1px solid #ffffff50;
-            padding: 7px 16px;
-            border-radius: 30px;
-            margin-bottom: 25px;
-        }
+.logo span {
+  color: var(--cyan);
+}
 
-        .hero h1 {
-            font-size: clamp(32px, 5vw, 56px);
-            line-height: 1.2;
-            margin-bottom: 20px;
-        }
+.nav-links {
+  display: flex;
+  gap: 17px;
+  align-items: center;
+  flex-wrap: wrap;
+}
 
-        .hero h1 span {
-            color: #75b7ff;
-        }
+.nav-links a {
+  color: #e8f0fa;
+  font-size: .92rem;
+  transition: color .2s;
+}
 
-        .hero p {
-            max-width: 700px;
-            margin: 0 auto 30px;
-            color: #e0eaff;
-            font-size: 17px;
-        }
+.nav-links a:hover {
+  color: var(--cyan);
+}
 
-        .button {
-            display: inline-block;
-            padding: 13px 25px;
-            background: #ffffff;
-            color: #142b55;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            margin: 5px;
-        }
+#languageSelect {
+  padding: 9px;
+  border: 1px solid var(--cyan);
+  border-radius: 8px;
+  background: var(--dark);
+  color: white;
+  cursor: pointer;
+  max-width: 145px;
+}
 
-        .button.primary {
-            background: #3989f5;
-            color: white;
-        }
+#languageSelect option {
+  background: var(--dark);
+  color: white;
+}
 
-        section {
-            padding: 70px 8%;
-        }
+.nav-cta {
+  background: var(--cyan);
+  color: var(--dark) !important;
+  padding: 9px 14px;
+  border-radius: 8px;
+  font-weight: bold;
+}
 
-        .section-title {
-            text-align: center;
-            margin-bottom: 40px;
-        }
+.hero {
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  color: white;
+  background:
+    radial-gradient(circle at 85% 20%, #20c9d83b, transparent 28%),
+    linear-gradient(125deg, #081b35, #123b70 65%, #175a83);
+}
 
-        .section-title h2 {
-            font-size: 32px;
-            margin-bottom: 10px;
-            color: #142b55;
-        }
+.hero-content {
+  padding: 85px 0;
+  max-width: 780px;
+}
 
-        .section-title p {
-            color: #68758c;
-        }
+.badge {
+  display: inline-block;
+  border: 1px solid #20c9d8a8;
+  color: var(--cyan);
+  border-radius: 30px;
+  padding: 7px 15px;
+  margin-bottom: 24px;
+  font-size: .9rem;
+}
 
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-            gap: 22px;
-        }
+.hero h1 {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  line-height: 1.2;
+  margin-bottom: 24px;
+}
 
-        .card {
-            background: white;
-            padding: 28px;
-            border-radius: 14px;
-            box-shadow: 0 5px 25px #142b5510;
-            border: 1px solid #e8edf5;
-        }
+.hero h1 span {
+  color: var(--cyan);
+}
 
-        .card .icon {
-            font-size: 35px;
-            margin-bottom: 15px;
-        }
+.hero p {
+  color: #d8e6f7;
+  font-size: 1.1rem;
+  max-width: 680px;
+  margin-bottom: 30px;
+}
 
-        .card h3 {
-            margin-bottom: 12px;
-            color: #174f91;
-        }
+.buttons {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
 
-        .card p {
-            color: #68758c;
-        }
+.btn {
+  display: inline-block;
+  padding: 13px 22px;
+  border-radius: 9px;
+  font-weight: bold;
+  transition: transform .2s;
+  cursor: pointer;
+}
 
-        .about {
-            background: white;
-        }
+.btn:hover {
+  transform: translateY(-3px);
+}
 
-        .about-content {
-            max-width: 850px;
-            margin: auto;
-            text-align: center;
-            font-size: 17px;
-            color: #58657b;
-        }
+.btn-primary {
+  background: var(--cyan);
+  color: var(--dark);
+}
 
-        .join {
-            text-align: center;
-            background: #eaf2ff;
-        }
+.btn-outline {
+  border: 1px solid #9eb6d3;
+  color: white;
+}
 
-        .join p {
-            max-width: 650px;
-            margin: 0 auto 25px;
-            color: #58657b;
-        }
+section {
+  padding: 80px 0;
+}
 
-        footer {
-            background: #101d40;
-            color: white;
-            text-align: center;
-            padding: 30px 15px;
-        }
+.section-heading {
+  text-align: center;
+  margin-bottom: 42px;
+}
 
-        footer p {
-            margin: 5px;
-            color: #d5deef;
-        }
+.section-heading small {
+  color: #078caa;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
 
-        @media (max-width: 600px) {
-            header {
-                justify-content: center;
-                text-align: center;
-            }
+.section-heading h2 {
+  color: var(--dark);
+  font-size: clamp(1.9rem, 4vw, 2.7rem);
+  margin: 8px 0 12px;
+}
 
-            nav {
-                justify-content: center;
-                gap: 12px;
-            }
+.section-heading p {
+  max-width: 700px;
+  margin: auto;
+  color: var(--muted);
+}
 
-            .hero {
-                padding: 70px 6%;
-            }
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 42px;
+  align-items: center;
+}
 
-            section {
-                padding: 50px 6%;
-            }
-        }
-    </style>
+.about-text h3 {
+  font-size: 1.7rem;
+  color: var(--blue);
+  margin-bottom: 15px;
+}
+
+.about-text p {
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.about-visual {
+  min-height: 300px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #e7f7fb, #d9e7fa);
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 30px;
+}
+
+.about-visual strong {
+  display: block;
+  font-size: 5rem;
+  line-height: 1.2;
+  color: var(--blue);
+}
+
+.about-visual span {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #078caa;
+}
+
+.activities {
+  background: var(--light);
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.card {
+  background: white;
+  border: 1px solid #e5edf6;
+  border-radius: 16px;
+  padding: 28px 24px;
+  box-shadow: 0 8px 28px #0d30580d;
+  transition: transform .25s, box-shadow .25s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 14px 32px #0d30581a;
+}
+
+.card-icon {
+  width: 55px;
+  height: 55px;
+  border-radius: 13px;
+  background: #e4f8fb;
+  display: grid;
+  place-items: center;
+  font-size: 1.7rem;
+  margin-bottom: 17px;
+}
+
+.card h3 {
+  color: var(--blue);
+  margin-bottom: 10px;
+}
+
+.card p {
+  color: var(--muted);
+  font-size: .96rem;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px;
+}
+
+.project {
+  border-radius: 16px;
+  background: linear-gradient(135deg, #102e53, #185781);
+  color: white;
+  padding: 30px;
+}
+
+.project small {
+  color: var(--cyan);
+  font-weight: bold;
+}
+
+.project h3 {
+  font-size: 1.4rem;
+  margin: 12px 0;
+}
+
+.project p {
+  color: #d9e7f7;
+}
+
+.join {
+  background: linear-gradient(125deg, #081b35, #123b70);
+  color: white;
+}
+
+.join .section-heading h2 {
+  color: white;
+}
+
+.join .section-heading p {
+  color: #d3e0ef;
+}
+
+.join-box {
+  max-width: 780px;
+  margin: auto;
+  padding: 32px;
+  background: white;
+  color: var(--text);
+  border-radius: 18px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 17px;
+}
+
+.field {
+  margin-bottom: 15px;
+}
+
+.field.full {
+  grid-column: 1 / -1;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 7px;
+  font-size: .93rem;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d5dfeb;
+  border-radius: 8px;
+  background: #fbfdff;
+  color: var(--text);
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: 2px solid #a9edf2;
+  border-color: #078caa;
+}
+
+textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+.submit-btn {
+  width: 100%;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 14px;
+  background: var(--cyan);
+  color: var(--dark);
+  border-radius: 9px;
+}
+
+.form-note {
+  font-size: .85rem;
+  color: var(--muted);
+  margin-top: 12px;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  text-align: center;
+}
+
+.contact-item {
+  padding: 25px 15px;
+  border: 1px solid #e5edf6;
+  border-radius: 13px;
+}
+
+.contact-item h3 {
+  color: var(--blue);
+  margin-bottom: 8px;
+}
+
+.contact-item p {
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+footer {
+  background: #061428;
+  color: #d4e1ef;
+  padding: 28px 0;
+  text-align: center;
+}
+
+footer strong {
+  color: var(--cyan);
+}
+
+[dir="rtl"] body {
+  text-align: right;
+}
+
+[dir="rtl"] .nav-links,
+[dir="rtl"] .buttons {
+  direction: rtl;
+}
+
+[dir="rtl"] .about-text .btn {
+  direction: rtl;
+}
+
+[dir="rtl"] input,
+[dir="rtl"] textarea,
+[dir="rtl"] select {
+  text-align: right;
+}
+
+@media (max-width: 850px) {
+  nav {
+    padding: 15px 0;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .nav-links {
+    gap: 12px;
+  }
+
+  .about-grid,
+  .cards,
+  .projects-grid,
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    min-height: auto;
+  }
+
+  .hero-content {
+    padding: 70px 0;
+  }
+
+  section {
+    padding: 60px 0;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .field.full {
+    grid-column: auto;
+  }
+
+  .join-box {
+    padding: 22px;
+  }
+}
+</style>
 </head>
 
 <body>
 
-    <header>
-        <div class="logo">ICEM <span>Tlemcen</span></div>
+<header>
+  <nav class="container">
+    <a href="#accueil" class="logo">ICEM<span>.</span></a>
 
-        <nav>
-            <a href="#accueil">Accueil</a>
-            <a href="#apropos">À propos</a>
-            <a href="#activites">Activités</a>
-            <a href="#contact">Contact</a>
-        </nav>
-    </header>
+    <div class="nav-links">
+      <a href="#accueil" data-i18n="navHome">Accueil</a>
+      <a href="#apropos" data-i18n="navAbout">À propos</a>
+      <a href="#activites" data-i18n="navActivities">Activités</a>
+      <a href="#projets" data-i18n="navProjects">Projets</a>
+      <a href="#contact" data-i18n="navContact">Contact</a>
 
-    <main>
-        <section class="hero" id="accueil">
-            <div class="badge">Club de Génie Industriel</div>
+      <select id="languageSelect" aria-label="Language">
+        <option value="fr">🇫🇷 Français</option>
+        <option value="en">🇬🇧 English</option>
+        <option value="ar">🇩🇿 العربية</option>
+      </select>
 
-            <h1>
-                Bienvenue chez<br>
-                <span>ICEM Tlemcen</span>
-            </h1>
+      <a href="#rejoindre" class="nav-cta" data-i18n="navJoin">
+        Nous rejoindre
+      </a>
+    </div>
+  </nav>
+</header>
 
-            <p>
-                Un espace dédié à l'innovation, à la créativité,
-                au partage des connaissances et au développement
-                des compétences des étudiants en génie industriel.
-            </p>
+<main>
 
-            <a href="#apropos" class="button">Découvrir le club</a>
-            <a href="#contact" class="button primary">Nous rejoindre</a>
-        </section>
+<section class="hero" id="accueil">
+  <div class="container">
+    <div class="hero-content">
+      <span class="badge" data-i18n="badge">
+        Club d'ingénierie industrielle · Tlemcen
+      </span>
 
-        <section class="about" id="apropos">
-            <div class="section-title">
-                <h2>À propos de nous</h2>
-                <p>Ensemble pour apprendre, créer et réussir.</p>
-            </div>
+      <h1>
+        <span data-i18n="heroLine1">L'innovation commence</span><br>
+        <span data-i18n="heroLine2">avec vous.</span>
+      </h1>
 
-            <div class="about-content">
-                <p>
-                    ICEM Tlemcen est un club étudiant dédié au génie
-                    industriel. Notre objectif est de créer un
-                    environnement dynamique où les étudiants peuvent
-                    développer leurs compétences, partager leurs idées
-                    et participer à des projets innovants.
-                </p>
-            </div>
-        </section>
+      <p data-i18n="heroText">
+        Bienvenue chez ICEM Tlemcen, un espace dédié à l'ingénierie industrielle,
+        à la créativité, au travail d'équipe et au développement des compétences.
+      </p>
 
-        <section id="activites">
-            <div class="section-title">
-                <h2>Nos activités</h2>
-                <p>Des expériences pour développer vos talents.</p>
-            </div>
+      <div class="buttons">
+        <a href="#apropos" class="btn btn-primary" data-i18n="discover">
+          Découvrir le club
+        </a>
+        <a href="#rejoindre" class="btn btn-outline" data-i18n="joinUs">
+          Rejoindre ICEM
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
 
-            <div class="cards">
-                <article class="card">
-                    <div class="icon">💡</div>
-                    <h3>Innovation</h3>
-                    <p>
-                        Encourager les nouvelles idées et accompagner
-                        les étudiants dans leurs projets innovants.
-                    </p>
-                </article>
+<section id="apropos">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text">
+        <h3 data-i18n="aboutTitle">Qui sommes-nous ?</h3>
 
-                <article class="card">
-                    <div class="icon">🎓</div>
-                    <h3>Formations</h3>
-                    <p>
-                        Organiser des ateliers et des formations
-                        pour améliorer les compétences techniques
-                        et personnelles.
-                    </p>
-                </article>
+        <p data-i18n="aboutText1">
+          ICEM Tlemcen est un club étudiant qui ambitionne de rapprocher
+          les connaissances théoriques de la pratique à travers des
+          activités scientifiques, techniques et collaboratives.
+        </p>
 
-                <article class="card">
-                    <div class="icon">🤝</div>
-                    <h3>Événements</h3>
-                    <p>
-                        Créer des occasions de rencontre, de
-                        collaboration et de partage entre étudiants.
-                    </p>
-                </article>
+        <p data-i18n="aboutText2">
+          Notre objectif est d'aider les étudiants à développer leurs
+          compétences, à partager leurs idées et à découvrir les applications
+          concrètes de l'ingénierie industrielle.
+        </p>
 
-                <article class="card">
-                    <div class="icon">⚙️</div>
-                    <h3>Projets industriels</h3>
-                    <p>
-                        Découvrir les outils, les méthodes et les
-                        solutions du génie industriel.
-                    </p>
-                </article>
-            </div>
-        </section>
+        <a href="#activites" class="btn btn-primary" data-i18n="discoverActivities">
+          Découvrir nos activités
+        </a>
+      </div>
 
-        <section class="join" id="contact">
-            <div class="section-title">
-                <h2>Rejoignez notre communauté</h2>
-            </div>
+      <div class="about-visual">
+        <div>
+          <strong>ICEM</strong>
+          <span data-i18n="motto">Innovation · Créativité · Excellence · Motivation</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-            <p>
-                Vous êtes étudiant et vous souhaitez apprendre,
-                partager vos idées et participer à des projets ?
-                Rejoignez ICEM Tlemcen !
-            </p>
+<section class="activities" id="activites">
+  <div class="container">
+    <div class="section-heading">
+      <small data-i18n="activitiesSmall">Ce que nous faisons</small>
+      <h2 data-i18n="activitiesTitle">Nos activités</h2>
+      <p data-i18n="activitiesIntro">
+        Des occasions d'apprendre, d'expérimenter et de construire ensemble
+        de nouvelles compétences.
+      </p>
+    </div>
 
-            <a href="mailto:icem.tlemcen@gmail.com"
-               class="button primary">
-                Nous contacter
-            </a>
-        </section>
-    </main>
+    <div class="cards">
+      <article class="card">
+        <div class="card-icon">⚙️</div>
+        <h3 data-i18n="activity1Title">Ateliers techniques</h3>
+        <p data-i18n="activity1Text">
+          Des ateliers pratiques pour découvrir les outils, les méthodes
+          et les technologies utiles aux futurs ingénieurs.
+        </p>
+      </article>
 
-    <footer>
-        <p><strong>ICEM Tlemcen</strong></p>
-        <p>Club de Génie Industriel</p>
-        <p>&copy; 2026 ICEM Tlemcen. Tous droits réservés.</p>
-    </footer>
+      <article class="card">
+        <div class="card-icon">💡</div>
+        <h3 data-i18n="activity2Title">Innovation et idées</h3>
+        <p data-i18n="activity2Text">
+          Des espaces d'échange pour proposer des idées, résoudre des problèmes
+          et développer des solutions créatives.
+        </p>
+      </article>
+
+      <article class="card">
+        <div class="card-icon">🤝</div>
+        <h3 data-i18n="activity3Title">Travail en équipe</h3>
+        <p data-i18n="activity3Text">
+          Des activités collaboratives pour améliorer la communication,
+          l'organisation et les compétences en leadership.
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="projets">
+  <div class="container">
+    <div class="section-heading">
+      <small data-i18n="projectsSmall">De l'idée à la réalisation</small>
+      <h2 data-i18n="projectsTitle">Projets et perspectives</h2>
+      <p data-i18n="projectsIntro">
+        Nous encourageons les étudiants à transformer leurs idées en projets
+        concrets et à partager leurs expériences.
+      </p>
+    </div>
+
+    <div class="projects-grid">
+      <article class="project">
+        <small data-i18n="project1Small">Ingénierie industrielle</small>
+        <h3 data-i18n="project1Title">Amélioration des processus</h3>
+        <p data-i18n="project1Text">
+          Explorer les méthodes d'amélioration continue, la qualité,
+          la productivité et l'optimisation des systèmes.
+        </p>
+      </article>
+
+      <article class="project">
+        <small data-i18n="project2Small">Technologie et créativité</small>
+        <h3 data-i18n="project2Title">Projets innovants</h3>
+        <p data-i18n="project2Text">
+          Encourager la conception, le prototypage et le développement
+          de solutions répondant à des besoins réels.
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="join" id="rejoindre">
+  <div class="container">
+    <div class="section-heading">
+      <small data-i18n="joinSmall">Faites partie de l'aventure</small>
+      <h2 data-i18n="joinTitle">Rejoindre ICEM Tlemcen</h2>
+      <p data-i18n="joinIntro">
+        Vous souhaitez apprendre, participer à nos activités et partager
+        vos idées ? Préparez votre demande d'adhésion ci-dessous.
+      </p>
+    </div>
+
+    <div class="join-box">
+      <form id="joinForm">
+        <div class="form-grid">
+
+          <div class="field">
+            <label for="nom" data-i18n="nameLabel">Nom et prénom *</label>
+            <input id="nom" name="nom" type="text" required
+              data-i18n-placeholder="namePlaceholder"
+              placeholder="Votre nom complet">
+          </div>
+
+          <div class="field">
+            <label for="email" data-i18n="emailLabel">Adresse e-mail *</label>
+            <input id="email" name="email" type="email" required
+              data-i18n-placeholder="emailPlaceholder"
+              placeholder="nom@exemple.com">
+          </div>
+
+          <div class="field">
+            <label for="filiere" data-i18n="fieldLabel">Filière d'études *</label>
+            <input id="filiere" name="filiere" type="text" required
+              data-i18n-placeholder="fieldPlaceholder"
+              placeholder="Ex. : Génie industriel">
+          </div>
+
+          <div class="field">
+            <label for="annee" data-i18n="yearLabel">Année d'études *</label>
+            <select id="annee" name="annee" required>
+              <option value="" data-i18n="chooseYear">Choisir une année</option>
+              <option value="L1" data-i18n="l1">Licence 1</option>
+              <option value="L2" data-i18n="l2">Licence 2</option>
+              <option value="L3" data-i18n="l3">Licence 3</option>
+              <option value="M1" data-i18n="m1">Master 1</option>
+              <option value="M2" data-i18n="m2">Master 2</option>
+              <option value="other" data-i18n="other">Autre</option>
+            </select>
+          </div>
+
+          <div class="field full">
+            <label for="motivation" data-i18n="motivationLabel">
+              Pourquoi souhaitez-vous rejoindre ICEM ?
+            </label>
+            <textarea id="motivation" name="motivation"
+              data-i18n-placeholder="motivationPlaceholder"
+              placeholder="Parlez-nous de votre motivation..."></textarea>
+          </div>
+
+        </div>
+
+        <button class="submit-btn" type="submit" data-i18n="submitButton">
+          Préparer ma demande
+        </button>
+
+        <p class="form-note" data-i18n="formNote">
+          Le formulaire prépare un e-mail. Les demandes ne sont pas encore
+          enregistrées dans une base de données.
+        </p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container">
+    <div class="section-heading">
+      <small data-i18n="contactSmall">Restons en contact</small>
+      <h2 data-i18n="contactTitle">Contactez-nous</h2>
+      <p data-i18n="contactIntro">
+        Pour toute question sur le club, ses activités ou les possibilités
+        de participation, contactez notre équipe.
+      </p>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-item">
+        <h3 data-i18n="locationTitle">📍 Localisation</h3>
+        <p data-i18n="locationText">Université de Tlemcen, Algérie</p>
+      </div>
+
+      <div class="contact-item">
+        <h3 data-i18n="domainTitle">🎓 Domaine</h3>
+        <p data-i18n="domainText">Ingénierie industrielle et innovation</p>
+      </div>
+
+      <div class="contact-item">
+        <h3 data-i18n="emailTitle">✉️ E-mail</h3>
+        <p data-i18n="emailText">Adresse officielle à ajouter</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <p>
+      © <span id="year"></span>
+      <strong>ICEM Tlemcen</strong>
+      <span data-i18n="rights">— Tous droits réservés.</span>
+    </p>
+    <p data-i18n="footerText">Ensemble, construisons les idées de demain.</p>
+  </div>
+</footer>
+
+<script>
+const translations = {
+  fr: {
+    pageTitle: "ICEM Tlemcen | Innovation & Excellence",
+    navHome: "Accueil",
+    navAbout: "À propos",
+    navActivities: "Activités",
+    navProjects: "Projets",
+    navContact: "Contact",
+    navJoin: "Nous rejoindre",
+    badge: "Club d'ingénierie industrielle · Tlemcen",
+    heroLine1: "L'innovation commence",
+    heroLine2: "avec vous.",
+    heroText: "Bienvenue chez ICEM Tlemcen, un espace dédié à l'ingénierie industrielle, à la créativité, au travail d'équipe et au développement des compétences.",
+    discover: "Découvrir le club",
+    joinUs: "Rejoindre ICEM",
+    aboutTitle: "Qui sommes-nous ?",
+    aboutText1: "ICEM Tlemcen est un club étudiant qui ambitionne de rapprocher les connaissances théoriques de la pratique à travers des activités scientifiques, techniques et collaboratives.",
+    aboutText2: "Notre objectif est d'aider les étudiants à développer leurs compétences, à partager leurs idées et à découvrir les applications concrètes de l'ingénierie industrielle.",
+    discoverActivities: "Découvrir nos activités",
+    motto: "Innovation · Créativité · Excellence · Motivation",
+    activitiesSmall: "Ce que nous faisons",
+    activitiesTitle: "Nos activités",
+    activitiesIntro: "Des occasions d'apprendre, d'expérimenter et de construire ensemble de nouvelles compétences.",
+    activity1Title: "Ateliers techniques",
+    activity1Text: "Des ateliers pratiques pour découvrir les outils, les méthodes et les technologies utiles aux futurs ingénieurs.",
+    activity2Title: "Innovation et idées",
+    activity2Text: "Des espaces d'échange pour proposer des idées, résoudre des problèmes et développer des solutions créatives.",
+    activity3Title: "Travail en équipe",
+    activity3Text: "Des activités collaboratives pour améliorer la communication, l'organisation et les compétences en leadership.",
+    projectsSmall: "De l'idée à la réalisation",
+    projectsTitle: "Projets et perspectives",
+    projectsIntro: "Nous encourageons les étudiants à transformer leurs idées en projets concrets et à partager leurs expériences.",
+    project1Small: "Ingénierie industrielle",
+    project1Title: "Amélioration des processus",
+    project1Text: "Explorer les méthodes d'amélioration continue, la qualité, la productivité et l'optimisation des systèmes.",
+    project2Small: "Technologie et créativité",
+    project2Title: "Projets innovants",
+    project2Text: "Encourager la conception, le prototypage et le développement de solutions répondant à des besoins réels.",
+    joinSmall: "Faites partie de l'aventure",
+    joinTitle: "Rejoindre ICEM Tlemcen",
+    joinIntro: "Vous souhaitez apprendre, participer à nos activités et partager vos idées ? Préparez votre demande d'adhésion ci-dessous.",
+    nameLabel: "Nom et prénom *",
+    namePlaceholder: "Votre nom complet",
+    emailLabel: "Adresse e-mail *",
+    emailPlaceholder: "nom@exemple.com",
+    fieldLabel: "Filière d'études *",
+    fieldPlaceholder: "Ex. : Génie industriel",
+    yearLabel: "Année d'études *",
+    chooseYear: "Choisir une année",
+    l1: "Licence 1",
+    l2: "Licence 2",
+    l3: "Licence 3",
+    m1: "Master 1",
+    m2: "Master 2",
+    other: "Autre",
+    motivationLabel: "Pourquoi souhaitez-vous rejoindre ICEM ?",
+    motivationPlaceholder: "Parlez-nous de votre motivation...",
+    submitButton: "Préparer ma demande",
+    formNote: "Le formulaire prépare un e-mail. Les demandes ne sont pas encore enregistrées dans une base de données.",
+    contactSmall: "Restons en contact",
+    contactTitle: "Contactez-nous",
+    contactIntro: "Pour toute question sur le club, ses activités ou les possibilités de participation, contactez notre équipe.",
+    locationTitle: "📍 Localisation",
+    locationText: "Université de Tlemcen, Algérie",
+    domainTitle: "🎓 Domaine",
+    domainText: "Ingénierie industrielle et innovation",
+    emailTitle: "✉️ E-mail",
+    emailText: "Adresse officielle à ajouter",
+    rights: "— Tous droits réservés.",
+    footerText: "Ensemble, construisons les idées de demain.",
+    alertRequired: "Veuillez remplir les champs obligatoires.",
+    alertEmail: "Votre application de messagerie va s'ouvrir pour préparer votre demande. L'envoi n'est pas automatique.",
+    mailSubject: "Demande d'adhésion à ICEM Tlemcen",
+    mailGreeting: "Bonjour l'équipe ICEM Tlemcen,",
+    mailIntro: "Je souhaite rejoindre le club.",
+    mailName: "Nom et prénom",
+    mailEmail: "E-mail",
+    mailField: "Filière",
+    mailYear: "Année",
+    mailMotivation: "Motivation",
+    mailClosing: "Cordialement.",
+    unspecified: "Non précisée"
+  },
+
+  en: {
+    pageTitle: "ICEM Tlemcen | Innovation & Excellence",
+    navHome: "Home",
+    navAbout: "About",
+    navActivities: "Activities",
+    navProjects: "Projects",
+    navContact: "Contact",
+    navJoin: "Join us",
+    badge: "Industrial Engineering Club · Tlemcen",
+    heroLine1: "Innovation begins",
+    heroLine2: "with you.",
+    heroText: "Welcome to ICEM Tlemcen, a space dedicated to industrial engineering, creativity, teamwork and skills development.",
+    discover: "Discover the club",
+    joinUs: "Join ICEM",
+    aboutTitle: "Who are we?",
+    aboutText1: "ICEM Tlemcen is a student club that aims to connect theoretical knowledge with practical experience through scientific, technical and collaborative activities.",
+    aboutText2: "Our goal is to help students develop their skills, share ideas and discover real-world applications of industrial engineering.",
+    discoverActivities: "Explore our activities",
+    motto: "Innovation · Creativity · Excellence · Motivation",
+    activitiesSmall: "What we do",
+    activitiesTitle: "Our activities",
+    activitiesIntro: "Opportunities to learn, experiment and build new skills together.",
+    activity1Title: "Technical workshops",
+    activity1Text: "Hands-on workshops introducing tools, methods and technologies useful to future engineers.",
+    activity2Title: "Innovation and ideas",
+    activity2Text: "Spaces to exchange ideas, solve problems and develop creative solutions.",
+    activity3Title: "Teamwork",
+    activity3Text: "Collaborative activities that improve communication, organization and leadership skills.",
+    projectsSmall: "From idea to reality",
+    projectsTitle: "Projects and opportunities",
+    projectsIntro: "We encourage students to turn their ideas into practical projects and share their experiences.",
+    project1Small: "Industrial engineering",
+    project1Title: "Process improvement",
+    project1Text: "Explore continuous improvement, quality, productivity and system optimization methods.",
+    project2Small: "Technology and creativity",
+    project2Title: "Innovative projects",
+    project2Text: "Encourage design, prototyping and the development of solutions to real needs.",
+    joinSmall: "Be part of the journey",
+    joinTitle: "Join ICEM Tlemcen",
+    joinIntro: "Would you like to learn, take part in our activities and share your ideas? Prepare your membership request below.",
+    nameLabel: "Full name *",
+    namePlaceholder: "Enter your full name",
+    emailLabel: "Email address *",
+    emailPlaceholder: "name@example.com",
+    fieldLabel: "Field of study *",
+    fieldPlaceholder: "E.g. Industrial Engineering",
+    yearLabel: "Year of study *",
+    chooseYear: "Choose a year",
+    l1: "Bachelor's Year 1",
+    l2: "Bachelor's Year 2",
+    l3: "Bachelor's Year 3",
+    m1: "Master's Year 1",
+    m2: "Master's Year 2",
+    other: "Other",
+    motivationLabel: "Why would you like to join ICEM?",
+    motivationPlaceholder: "Tell us about your motivation...",
+    submitButton: "Prepare my request",
+    formNote: "This form prepares an email. Requests are not yet stored in a database.",
+    contactSmall: "Stay in touch",
+    contactTitle: "Contact us",
+    contactIntro: "For questions about the club, activities or participation opportunities, contact our team.",
+    locationTitle: "📍 Location",
+    locationText: "University of Tlemcen, Algeria",
+    domainTitle: "🎓 Field",
+    domainText: "Industrial engineering and innovation",
+    emailTitle: "✉️ Email",
+    emailText: "Official address to be added",
+    rights: "— All rights reserved.",
+    footerText: "Together, let's build tomorrow's ideas.",
+    alertRequired: "Please complete the required fields.",
+    alertEmail: "Your email application will open to prepare your request. The message will not be sent automatically.",
+    mailSubject: "ICEM Tlemcen Membership Request",
+    mailGreeting: "Hello ICEM Tlemcen team,",
+    mailIntro: "I would like to join the club.",
+    mailName: "Full name",
+    mailEmail: "Email",
+    mailField: "Field of study",
+    mailYear: "Year of study",
+    mailMotivation: "Motivation",
+    mailClosing: "Kind regards.",
+    unspecified: "Not specified"
+  },
+
+  ar: {
+    pageTitle: "ICEM تلمسان | الابتكار والتميز",
+    navHome: "الرئيسية",
+    navAbout: "من نحن",
+    navActivities: "النشاطات",
+    navProjects: "المشاريع",
+    navContact: "اتصل بنا",
+    navJoin: "انضم إلينا",
+    badge: "نادي الهندسة الصناعية · تلمسان",
+    heroLine1: "الابتكار يبدأ",
+    heroLine2: "بك أنت.",
+    heroText: "مرحبًا بكم في نادي ICEM تلمسان، فضاء مخصص للهندسة الصناعية والإبداع والعمل الجماعي وتطوير مهارات الطلبة.",
+    discover: "اكتشف النادي",
+    joinUs: "انضم إلى ICEM",
+    aboutTitle: "من نحن؟",
+    aboutText1: "ICEM تلمسان هو نادٍ طلابي يهدف إلى ربط المعارف النظرية بالتطبيق من خلال الأنشطة العلمية والتقنية والعمل الجماعي.",
+    aboutText2: "نسعى إلى مساعدة الطلبة على تطوير مهاراتهم وتبادل أفكارهم واكتشاف التطبيقات العملية للهندسة الصناعية.",
+    discoverActivities: "اكتشف نشاطاتنا",
+    motto: "الابتكار · الإبداع · التميز · التحفيز",
+    activitiesSmall: "ماذا نقدم؟",
+    activitiesTitle: "نشاطاتنا",
+    activitiesIntro: "فرص للتعلم والتجربة وبناء مهارات جديدة معًا.",
+    activity1Title: "ورشات تقنية",
+    activity1Text: "ورشات تطبيقية للتعرف على الأدوات والأساليب والتقنيات المفيدة للمهندسين المستقبليين.",
+    activity2Title: "الابتكار والأفكار",
+    activity2Text: "فضاءات لتبادل الأفكار وحل المشكلات وتطوير حلول إبداعية.",
+    activity3Title: "العمل الجماعي",
+    activity3Text: "أنشطة تعاونية لتطوير التواصل والتنظيم ومهارات القيادة.",
+    projectsSmall: "من الفكرة إلى الإنجاز",
+    projectsTitle: "المشاريع والآفاق",
+    projectsIntro: "نشجع الطلبة على تحويل أفكارهم إلى مشاريع عملية وتبادل خبراتهم.",
+    project1Small: "الهندسة الصناعية",
+    project1Title: "تحسين العمليات",
+    project1Text: "اكتشاف أساليب التحسين المستمر والجودة والإنتاجية وتحسين أداء الأنظمة.",
+    project2Small: "التكنولوجيا والإبداع",
+    project2Title: "مشاريع مبتكرة",
+    project2Text: "تشجيع التصميم وصناعة النماذج الأولية وتطوير حلول تلبي احتياجات حقيقية.",
+    joinSmall: "كن جزءًا من التجربة",
+    joinTitle: "انضم إلى ICEM تلمسان",
+    joinIntro: "هل تريد التعلم والمشاركة في نشاطاتنا وتبادل أفكارك؟ حضّر طلب الانضمام من خلال الاستمارة التالية.",
+    nameLabel: "الاسم واللقب *",
+    namePlaceholder: "أدخل اسمك الكامل",
+    emailLabel: "البريد الإلكتروني *",
+    emailPlaceholder: "name@example.com",
+    fieldLabel: "التخصص الدراسي *",
+    fieldPlaceholder: "مثال: الهندسة الصناعية",
+    yearLabel: "السنة الدراسية *",
+    chooseYear: "اختر السنة الدراسية",
+    l1: "ليسانس سنة أولى",
+    l2: "ليسانس سنة ثانية",
+    l3: "ليسانس سنة ثالثة",
+    m1: "ماستر سنة أولى",
+    m2: "ماستر سنة ثانية",
+    other: "أخرى",
+    motivationLabel: "لماذا تريد الانضمام إلى ICEM؟",
+    motivationPlaceholder: "أخبرنا عن دوافعك...",
+    submitButton: "تحضير طلب الانضمام",
+    formNote: "هذه الاستمارة تحضّر رسالة بريد إلكتروني فقط. الطلبات لا تُحفظ حاليًا في قاعدة بيانات.",
+    contactSmall: "ابقوا على تواصل",
+    contactTitle: "اتصل بنا",
+    contactIntro: "إذا كانت لديك أسئلة حول النادي أو نشاطاته أو فرص المشاركة، يمكنك التواصل مع فريقنا.",
+    locationTitle: "📍 الموقع",
+    locationText: "جامعة تلمسان، الجزائر",
+    domainTitle: "🎓 المجال",
+    domainText: "الهندسة الصناعية والابتكار",
+    emailTitle: "✉️ البريد الإلكتروني",
+    emailText: "سيتم إضافة البريد الرسمي لاحقًا",
+    rights: "— جميع الحقوق محفوظة.",
+    footerText: "معًا نبني أفكار الغد.",
+    alertRequired: "يرجى ملء الحقول الإلزامية.",
+    alertEmail: "سيتم فتح تطبيق البريد الإلكتروني لتحضير طلبك. لن تُرسل الرسالة تلقائيًا.",
+    mailSubject: "طلب الانضمام إلى نادي ICEM تلمسان",
+    mailGreeting: "السلام عليكم فريق ICEM تلمسان،",
+    mailIntro: "أرغب في الانضمام إلى النادي.",
+    mailName: "الاسم واللقب",
+    mailEmail: "البريد الإلكتروني",
+    mailField: "التخصص",
+    mailYear: "السنة الدراسية",
+    mailMotivation: "الدافع",
+    mailClosing: "مع خالص التحية.",
+    unspecified: "لم يحدد"
+  }
+};
+
+const languageSelect = document.getElementById("languageSelect");
+
+function setLanguage(language) {
+  const t = translations[language] || translations.fr;
+
+  document.documentElement.lang = language;
+  document.documentElement.dir = language === "ar" ? "rtl" : "ltr";
+  document.title = t.pageTitle;
+
+  document.querySelectorAll("[data-i18n]").forEach(element => {
+    const key = element.getAttribute("data-i18n");
+    if (t[key] !== undefined) {
+      element.textContent = t[key];
+    }
+  });
+
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(element => {
+    const key = element.getAttribute("data-i18n-placeholder");
+    if (t[key] !== undefined) {
+      element.placeholder = t[key];
+    }
+  });
+
+  localStorage.setItem("icem-language", language);
+}
+
+languageSelect.addEventListener("change", function() {
+  setLanguage(this.value);
+});
+
+document.getElementById("year").textContent = new Date().getFullYear();
+
+document.getElementById("joinForm").addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  const language = languageSelect.value;
+  const t = translations[language];
+  const data = new FormData(this);
+
+  const subject = encodeURIComponent(t.mailSubject);
+
+  const body = encodeURIComponent(
+    t.mailGreeting + "\n\n" +
+    t.mailIntro + "\n\n" +
+    t.mailName + ": " + data.get("nom") + "\n" +
+    t.mailEmail + ": " + data.get("email") + "\n" +
+    t.mailField + ": " + data.get("filiere") + "\n" +
+    t.mailYear + ": " + document.getElementById("annee").selectedOptions[0].text + "\n" +
+    t.mailMotivation + ": " + (data.get("motivation") || t.unspecified) + "\n\n" +
+    t.mailClosing
+  );
+
+  alert(t.alertEmail);
+
+  /*
+    استبدل icem@example.com بالبريد الرسمي للنادي
+    قبل تفعيل استقبال طلبات الانضمام.
+  */
+  window.location.href =
+    "mailto:?subject=" + subject + "&body=" + body;
+});
+
+const savedLanguage = localStorage.getItem("icem-language") || "fr";
+languageSelect.value = savedLanguage;
+setLanguage(savedLanguage);
+</script>
 
 </body>
 </html>
