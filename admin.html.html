@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#081b35">
+<title>ICEM — Administration</title>
+<style>
+:root{--navy:#081b35;--blue:#123b70;--cyan:#20c9d8;--bg:#f3f6fb;--ink:#243449;--muted:#64748b;--line:#dce5ef;--green:#147d52;--red:#b42318}
+*{box-sizing:border-box}body{margin:0;font:16px/1.5 Arial,Tahoma,sans-serif;background:var(--bg);color:var(--ink)}button,input,select{font:inherit}button{cursor:pointer}
+header{background:var(--navy);color:#fff;padding:18px 22px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{font-size:1.3rem;font-weight:800}.brand span{color:var(--cyan)}.sub{font-size:.9rem;color:#cbd8e8}
+main{width:min(1200px,94%);margin:26px auto}.panel{background:white;border:1px solid var(--line);border-radius:14px;padding:22px;margin-bottom:18px;box-shadow:0 5px 20px #081b3508}
+h1,h2,h3{margin:0 0 12px;color:var(--navy)}.muted{color:var(--muted)}.hidden{display:none!important}
+label{display:block;font-weight:700;margin:12px 0 6px}input,select{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:8px;background:#fff;color:var(--ink)}button{border:0;border-radius:8px;padding:11px 15px;font-weight:700}
+.primary{background:var(--cyan);color:var(--navy)}.secondary{background:#e7edf5;color:var(--navy)}.danger{background:#fee4e2;color:var(--red)}.success{background:#d9fbe8;color:var(--green)}
+.row{display:flex;gap:12px;align-items:end;flex-wrap:wrap}.row>*{flex:1;min-width:180px}.row .button-wrap{flex:0 0 auto;min-width:auto}
+.notice{padding:12px 14px;border-radius:8px;background:#eef6ff;margin-top:12px;overflow-wrap:anywhere}.error{background:#fff0ef;color:var(--red)}.good{background:#e9fbf1;color:var(--green)}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.stat{border:1px solid var(--line);border-radius:10px;padding:16px}.stat b{display:block;font-size:1.7rem;color:var(--blue)}.stat span{font-size:.9rem;color:var(--muted)}
+.toolbar{display:grid;grid-template-columns:2fr 1fr 1fr;gap:10px;margin:15px 0}
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:10px}table{width:100%;border-collapse:collapse;min-width:850px;background:white}th,td{padding:12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}th{background:#f7f9fc;color:var(--navy);font-size:.9rem}td{font-size:.92rem}.status{display:inline-block;border-radius:20px;padding:4px 9px;font-size:.8rem;font-weight:700;background:#e8eef6}.status.pending{background:#fff2cc;color:#815b00}.status.accepted{background:#d9fbe8;color:#116b45}.status.rejected{background:#fee4e2;color:#a11b13}.actions{display:flex;gap:6px;flex-wrap:wrap}.actions button{padding:8px 10px;font-size:.85rem}
+#loginBox{max-width:440px;margin:55px auto}.empty{text-align:center;padding:30px;color:var(--muted)}
+@media(max-width:700px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.toolbar{grid-template-columns:1fr}.panel{padding:16px}header{padding:15px}main{width:95%}}
+</style>
+</head>
+<body>
+<header><div><div class="brand">ICEM<span>.</span> Administration</div><div class="sub">Gestion sécurisée des demandes d’adhésion</div></div><div id="headerActions" class="hidden"><span id="adminLabel" class="sub"></span> <button id="logoutBtn" class="secondary">Déconnexion</button></div></header>
+<main>
+<section id="loginBox" class="panel">
+<h1>Connexion administrateur</h1>
+<p class="muted">Connectez-vous avec le compte administrateur créé dans Supabase Auth.</p>
+<form id="loginForm">
+<label for="email">Adresse e-mail</label><input id="email" type="email" autocomplete="username" required>
+<label for="password">Mot de passe</label><input id="password" type="password" autocomplete="current-password" required>
+<div style="margin-top:16px"><button class="primary" type="submit" id="loginBtn">Se connecter</button></div>
+<div id="loginMessage" class="notice hidden" role="status" aria-live="polite"></div>
+</form>
+</section>
+<section id="dashboard" class="hidden">
+<div class="panel"><div class="row" style="align-items:center"><div><h1>Tableau de bord</h1><p class="muted">Consultez, recherchez et traitez les demandes.</p></div><div class="button-wrap"><button id="refreshBtn" class="secondary">Actualiser</button> <button id="csvBtn" class="secondary">Exporter CSV</button></div></div></div>
+<div class="panel stats">
+<div class="stat"><b id="totalCount">0</b><span>Total des demandes</span></div><div class="stat"><b id="pendingCount">0</b><span>En attente</span></div><div class="stat"><b id="acceptedCount">0</b><span>Acceptées</span></div><div class="stat"><b id="rejectedCount">0</b><span>Refusées</span></div>
+</div>
+<div class="panel">
+<h2>Demandes d’adhésion</h2>
+<div class="toolbar"><input id="searchInput" type="search" placeholder="Rechercher nom, e-mail, téléphone…"><select id="statusFilter"><option value="all">Tous les statuts</option><option value="pending">En attente</option><option value="accepted">Acceptées</option><option value="rejected">Refusées</option></select><select id="sortSelect"><option value="newest">Plus récentes d’abord</option><option value="oldest">Plus anciennes d’abord</option></select></div>
+<div id="dashboardMessage" class="notice hidden" role="status" aria-live="polite"></div>
+<div class="table-wrap"><table><thead><tr><th>Date</th><th>Étudiant</th><th>Coordonnées</th><th>Études</th><th>Participation</th><th>Motivation</th><th>Statut et actions</th></tr></thead><tbody id="applicationsBody"><tr><td colspan="7" class="empty">Chargement…</td></tr></tbody></table></div>
+<p class="muted" style="margin-top:10px;font-size:.88rem">Les actions sont enregistrées dans Supabase. L’accès doit rester réservé aux responsables autorisés.</p>
+</div>
+</section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL = "https://xocsejawjqhptcukpndo.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_r1BT5rMA--22G7CrOw4o6g_utD2g-VT";
+const ADMIN_EMAIL = "haoudharoune@gmail.com";
+const { createClient } = supabase;
+const db = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+const $ = id => document.getElementById(id);
+let applications = [];
+
+function showMessage(id, text, isError=false){
+  const box=$(id); box.textContent=text; box.classList.remove("hidden","error","good");
+  box.classList.add(isError?"error":"good");
+}
+function hideMessage(id){$(id).classList.add("hidden")}
+function escapeHtml(value){
+  return String(value ?? "").replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
+}
+function statusText(status){
+  if(status==="accepted") return "Acceptée";
+  if(status==="rejected") return "Refusée";
+  return "En attente";
+}
+function updateStats(){
+  $("totalCount").textContent=applications.length;
+  $("pendingCount").textContent=applications.filter(x=>!x.status||x.status==="pending").length;
+  $("acceptedCount").textContent=applications.filter(x=>x.status==="accepted").length;
+  $("rejectedCount").textContent=applications.filter(x=>x.status==="rejected").length;
+}
+function render(){
+  const q=$("searchInput").value.trim().toLowerCase();
+  const f=$("statusFilter").value;
+  const sorted=[...applications].sort((a,b)=>{
+    const d=new Date(a.created_at||0)-new Date(b.created_at||0);
+    return $("sortSelect").value==="newest"?-d:d;
+  }).filter(a=>{
+    const status=a.status||"pending";
+    const text=[a.full_name,a.email,a.phone,a.student_id,a.faculty,a.department,a.study_level,a.membership_type,a.motivation].join(" ").toLowerCase();
+    return (f==="all"||status===f)&&text.includes(q);
+  });
+  const body=$("applicationsBody");
+  if(!sorted.length){body.innerHTML='<tr><td colspan="7" class="empty">Aucune demande ne correspond à la recherche.</td></tr>';return}
+  body.innerHTML=sorted.map(a=>{
+    const st=a.status||"pending";
+    const date=a.created_at?new Date(a.created_at).toLocaleString("fr-FR"):"—";
+    const student=`<strong>${escapeHtml(a.full_name||"—")}</strong><br><span class="muted">${escapeHtml(a.student_id||"Matricule non renseigné")}</span><br><span class="muted">Né(e) le : ${escapeHtml(a.birth_date||"—")}</span>`;
+    const contact=`${escapeHtml(a.email||"—")}<br>${escapeHtml(a.phone||"—")}`;
+    const studies=`${escapeHtml(a.faculty||"—")}<br>${escapeHtml(a.department||"—")}<br>${escapeHtml(a.study_level||"—")}`;
+    const typeMap={active_member:"Membre actif",volunteer:"Bénévole",activities_only:"Activités"};
+    const type=typeMap[a.membership_type]||a.membership_type||"—";
+    const actions=`<span class="status ${escapeHtml(st)}">${statusText(st)}</span><div class="actions" style="margin-top:8px"><button class="success" data-id="${escapeHtml(a.id)}" data-status="accepted">Accepter</button><button class="danger" data-id="${escapeHtml(a.id)}" data-status="rejected">Refuser</button><button class="secondary" data-id="${escapeHtml(a.id)}" data-status="pending">En attente</button></div>`;
+    return `<tr><td>${escapeHtml(date)}</td><td>${student}</td><td>${contact}</td><td>${studies}</td><td>${escapeHtml(type)}</td><td>${escapeHtml(a.motivation||"—")}</td><td>${actions}</td></tr>`;
+  }).join("");
+}
+async function loadApplications(){
+  hideMessage("dashboardMessage");
+  $("applicationsBody").innerHTML='<tr><td colspan="7" class="empty">Chargement…</td></tr>';
+  const {data,error}=await db.from("membership_applications").select("id,created_at,full_name,email,phone,birth_date,student_id,faculty,department,study_level,membership_type,motivation,status").order("created_at",{ascending:false});
+  if(error){
+    $("applicationsBody").innerHTML='<tr><td colspan="7" class="empty">Impossible de charger les demandes.</td></tr>';
+    showMessage("dashboardMessage","Erreur Supabase : "+error.message+" — vérifiez les policies SELECT pour le compte administrateur.",true);
+    return;
+  }
+  applications=data||[]; updateStats(); render();
+}
+async function setStatus(id,status){
+  const label=status==="accepted"?"accepter":status==="rejected"?"refuser":"remettre en attente";
+  if(!confirm("Confirmer : "+label+" cette demande ?")) return;
+  const {error}=await db.from("membership_applications").update({status,reviewed_at:new Date().toISOString()}).eq("id",id);
+  if(error){showMessage("dashboardMessage","Impossible de modifier le statut : "+error.message,true);return}
+  showMessage("dashboardMessage","Statut mis à jour : "+statusText(status));
+  await loadApplications();
+}
+function exportCsv(){
+  const cols=["created_at","full_name","email","phone","birth_date","student_id","faculty","department","study_level","membership_type","motivation","status","admin_note"];
+  const rows=[cols,...applications.map(a=>cols.map(c=>a[c]??""))];
+  const csv="\uFEFF"+rows.map(row=>row.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(",")).join("\r\n");
+  const url=URL.createObjectURL(new Blob([csv],{type:"text/csv;charset=utf-8;"}));
+  const link=document.createElement("a");link.href=url;link.download="icem-demandes-adhesion.csv";link.click();URL.revokeObjectURL(url);
+}
+function showDashboard(user){
+  if(!user||user.email?.toLowerCase()!==ADMIN_EMAIL.toLowerCase()){
+    $("loginBox").classList.remove("hidden");$("dashboard").classList.add("hidden");$("headerActions").classList.add("hidden");
+    showMessage("loginMessage","Ce compte n’est pas autorisé à accéder au tableau de bord.",true);
+    db.auth.signOut();return;
+  }
+  $("loginBox").classList.add("hidden");$("dashboard").classList.remove("hidden");$("headerActions").classList.remove("hidden");$("adminLabel").textContent=user.email;
+  loadApplications();
+}
+$("loginForm").addEventListener("submit",async e=>{
+  e.preventDefault();hideMessage("loginMessage");$("loginBtn").disabled=true;$("loginBtn").textContent="Connexion…";
+  const {data,error}=await db.auth.signInWithPassword({email:$("email").value.trim(),password:$("password").value});
+  $("loginBtn").disabled=false;$("loginBtn").textContent="Se connecter";
+  if(error){showMessage("loginMessage","Connexion impossible : "+error.message,true);return}
+  showDashboard(data.user);
+});
+$("logoutBtn").addEventListener("click",async()=>{await db.auth.signOut();$("dashboard").classList.add("hidden");$("headerActions").classList.add("hidden");$("loginBox").classList.remove("hidden")});
+$("refreshBtn").addEventListener("click",loadApplications);
+$("csvBtn").addEventListener("click",exportCsv);
+$("searchInput").addEventListener("input",render);
+$("statusFilter").addEventListener("change",render);
+$("sortSelect").addEventListener("change",render);
+$("applicationsBody").addEventListener("click",e=>{
+  const btn=e.target.closest("button[data-id][data-status]");
+  if(btn)setStatus(btn.dataset.id,btn.dataset.status);
+});
+db.auth.getSession().then(({data})=>{if(data.session)showDashboard(data.session.user)});
+db.auth.onAuthStateChange((_event,session)=>{if(session)showDashboard(session.user)});
+</script>
+</body>
+</html>
