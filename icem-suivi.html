@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#081b35">
+<title>ICEM — Suivi de demande</title>
+<style>
+:root{--navy:#081b35;--blue:#123b70;--cyan:#20c9d8;--bg:#f3f6fb;--ink:#243449;--muted:#64748b;--line:#dce5ef;--green:#147d52;--red:#b42318}
+*{box-sizing:border-box}body{margin:0;font:16px/1.6 Arial,Tahoma,sans-serif;background:var(--bg);color:var(--ink)}
+header{background:var(--navy);color:#fff;padding:20px}.brand{font-size:1.3rem;font-weight:800}.brand span{color:var(--cyan)}header p{margin:4px 0 0;color:#cbd8e8}
+main{width:min(650px,92%);margin:38px auto}.panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:25px;box-shadow:0 8px 25px #081b350b}
+h1,h2{color:var(--navy);margin-top:0}label{display:block;font-weight:700;margin:14px 0 6px}input{width:100%;padding:13px;border:1px solid #cbd5e1;border-radius:9px;font:inherit}button{margin-top:18px;padding:13px 18px;border:0;border-radius:9px;background:var(--cyan);color:var(--navy);font:inherit;font-weight:700;cursor:pointer;width:100%}button:disabled{opacity:.6;cursor:wait}.hint{font-size:.9rem;color:var(--muted)}.notice{padding:13px;border-radius:9px;margin-top:16px;overflow-wrap:anywhere}.error{background:#fff0ef;color:var(--red)}.good{background:#e9fbf1;color:var(--green)}.result{margin-top:20px;padding:20px;border:1px solid var(--line);border-radius:12px;display:none}.badge{display:inline-block;padding:6px 12px;border-radius:20px;font-weight:700}.pending{background:#fff2cc;color:#815b00}.accepted{background:#d9fbe8;color:#116b45}.rejected{background:#fee4e2;color:#a11b13}.back{display:inline-block;margin-top:18px;color:var(--blue);font-weight:700;text-decoration:none}
+</style>
+</head>
+<body>
+<header><div class="brand">ICEM<span>.</span> Tlemcen</div><p>Suivi de votre demande d’adhésion</p></header>
+<main>
+<section class="panel">
+<h1>Suivre ma demande</h1>
+<p class="hint">Saisissez votre matricule étudiant et l’adresse e-mail ou le numéro de téléphone utilisé lors de l’inscription.</p>
+<form id="trackForm">
+<label for="studentId">Numéro de carte / matricule étudiant</label>
+<input id="studentId" required autocomplete="off" maxlength="100" placeholder="Votre matricule étudiant">
+<label for="contact">E-mail ou numéro de téléphone</label>
+<input id="contact" required autocomplete="email" maxlength="200" placeholder="E-mail ou téléphone utilisé à l’inscription">
+<button id="submitBtn" type="submit">Consulter ma demande</button>
+</form>
+<div id="message" class="notice" style="display:none" role="status" aria-live="polite"></div>
+<div id="result" class="result" aria-live="polite">
+<h2>Résultat de votre demande</h2>
+<p><strong>Statut :</strong> <span id="statusBadge" class="badge"></span></p>
+<p id="statusDescription"></p>
+<p class="hint"><strong>Date de dépôt :</strong> <span id="createdAt">—</span></p>
+<p class="hint"><strong>Dernière mise à jour :</strong> <span id="reviewedAt">—</span></p>
+</div>
+<a class="back" href="/">← Retour au site ICEM</a>
+</section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL = "https://xocsejawjqhptcukpndo.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_r1BT5rMA--22G7CrOw4o6g_utD2g-VT";
+const db = supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+const $ = id => document.getElementById(id);
+function displayDate(value) {
+  if (!value) return "—";
+  const d = new Date(value);
+  return Number.isNaN(d.getTime()) ? "—" : d.toLocaleString("fr-FR");
+}
+$("trackForm").addEventListener("submit", async event => {
+  event.preventDefault();
+  $("message").style.display = "none";
+  $("result").style.display = "none";
+  $("submitBtn").disabled = true;
+  $("submitBtn").textContent = "Recherche…";
+  try {
+    const {data, error} = await db.rpc("check_membership_status", {
+      p_student_id: $("studentId").value.trim(),
+      p_contact: $("contact").value.trim()
+    });
+    if (error) throw error;
+    if (!data || data.length === 0) {
+      $("message").className = "notice error";
+      $("message").textContent = "Aucune demande correspondante. Vérifiez le matricule et l’e-mail ou le téléphone utilisés lors de l’inscription.";
+      $("message").style.display = "block";
+      return;
+    }
+    const item = data[0];
+    const status = item.status || "pending";
+    const badge = $("statusBadge");
+    badge.className = "badge " + (["accepted","rejected","pending"].includes(status) ? status : "pending");
+    const messages = {
+      pending: "Votre demande est en cours d’étude. Merci de patienter.",
+      accepted: "Félicitations ! Votre demande d’adhésion à ICEM est acceptée.",
+      rejected: "Nous sommes désolés, votre demande d’adhésion n’a pas été acceptée."
+    };
+    badge.textContent = status === "accepted" ? "Acceptée" : status === "rejected" ? "Refusée" : "En attente";
+    $("statusDescription").textContent = messages[status] || messages.pending;
+    $("createdAt").textContent = displayDate(item.created_at);
+    $("reviewedAt").textContent = displayDate(item.reviewed_at);
+    $("result").style.display = "block";
+  } catch (err) {
+    $("message").className = "notice error";
+    $("message").textContent = "Impossible de consulter la demande pour le moment. Vérifiez que l’étape SQL a été exécutée dans Supabase, puis réessayez.";
+    $("message").style.display = "block";
+    console.error(err);
+  } finally {
+    $("submitBtn").disabled = false;
+    $("submitBtn").textContent = "Consulter ma demande";
+  }
+});
+</script>
+</body>
+</html>
